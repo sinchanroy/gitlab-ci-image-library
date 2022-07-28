@@ -20,5 +20,8 @@ RUN apk add unzip wget curl --no-cache && \
     curl -L ${RELEASE_ROOT}/${RELEASE_FILE} | tar xvz && \
     mv linux-amd64/helm /usr/bin/helm && \
     chmod +x /usr/bin/helm && \
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/bin/kubectl && \
     apk del unzip wget curl && \
     rm /tmp/terraform /tmp/terraform.zip
