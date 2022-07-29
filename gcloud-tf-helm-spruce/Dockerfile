@@ -22,7 +22,11 @@ RUN apk add unzip wget curl --no-cache && \
     chmod +x /usr/bin/helm && \
     curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
-    mv ./kubectl /usr/bin/kubectl
+    mv ./kubectl /usr/bin/kubectl && \
+    wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && \
+    mv jq-linux64 /usr/local/bin/jq && \
+    chmod +x /usr/local/bin/jq
+
 
 FROM google/cloud-sdk:alpine
 
@@ -32,4 +36,4 @@ COPY --from=0 /usr/local/bin/terraform /usr/local/bin/terraform
 COPY --from=0 /usr/local/bin/spruce /usr/local/bin/spruce
 COPY --from=0 /usr/bin/helm /usr/bin/helm
 COPY --from=0 /usr/bin/kubectl /usr/bin/kubectl
-
+COPY --from=0 /usr/local/bin/jq /usr/local/bin/jq
